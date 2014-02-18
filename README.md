@@ -5,7 +5,7 @@ Simple wrapper for Javascript Speech-to-text to add voice commands.
 
 ### Example
 
-```
+```javasscript
 if ( SPEECH.isCapable() ) { // the browser supports speech recognition
     SPEECH.onStart = function() {
         // fires once browser recognition has started
