@@ -97,7 +97,7 @@
   };
 
   if (speechRecognition) {
-    recognition = new speechRecognition()
+    recognition = new speechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
 
