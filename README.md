@@ -47,7 +47,7 @@ if ( SPEECH.isCapable() ) { // the browser supports speech recognition
     // gets things going. when speech recognition is ready,
     // onStart will be called.
     SPEECH.start({
-        min_confidence = .3 // you can also pass config here
+        min_confidence: .3 // you can also pass config here
     });
 }
 ```
