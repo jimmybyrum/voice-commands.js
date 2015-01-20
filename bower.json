@@ -2,7 +2,7 @@
   "name": "voice-commands.js",
   "main": "voice-commands.min.js",
   "version": "1.0.0",
-  "homepage": "https://github.com/jimmybyrum/voice-commands.js",
+  "homepage": "http://jimmybyrum.github.io/voice-commands.js/",
   "authors": [
     "Jimmy Byrum <me@jimmybyrum.com>"
   ],

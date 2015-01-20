@@ -16,12 +16,12 @@
     "text",
     "browser"
   ],
-  "author": "Jimmy Byrum <me@jimmybyrum.com> (http://jimmybyrum.com/)",
+  "author": "Jimmy Byrum (https://github.com/jimmybyrum)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jimmybyrum/voice-commands.js/issues"
   },
-  "homepage": "https://github.com/jimmybyrum/voice-commands.js",
+  "homepage": "http://jimmybyrum.github.io/voice-commands.js/",
   "devDependencies": {
     "gulp": "^3.8.10",
     "gulp-eslint": "^0.2.0"
