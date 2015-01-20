@@ -39,9 +39,10 @@ if ( SPEECH.isCapable() ) { // the browser supports speech recognition
             }
         }
     });
-    SPEECH.onResult(function(transcript) {
+    SPEECH.onResult(function(result) {
         // fires after commands set via addVoiceCommands are parsed.
-        // transcript is the object built by the speech recognition engine.
+        // result.transcript is the object built by the speech recognition engine.
+        // result.confidence is confidence in decimals (0.02392)
     });
 
     // gets things going. when speech recognition is ready,
