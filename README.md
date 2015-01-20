@@ -7,12 +7,12 @@ Simple wrapper for Javascript Speech-to-text to add voice commands.
 
 ```javascript
 if ( SPEECH.isCapable() ) { // the browser supports speech recognition
-    SPEECH.onStart = function() {
+    SPEECH.onStart(function() {
         // fires once browser recognition has started
-    };
-    SPEECH.onStop = function() {
+    });
+    SPEECH.onStop(function() {
         // fires when speech is manually stopped, or on error
-    };
+    });
     SPEECH.min_confidence = .2; // the default minimum confidence you're willing to accept as a command
     SPEECH.addVoiceCommands([
         {
@@ -39,13 +39,15 @@ if ( SPEECH.isCapable() ) { // the browser supports speech recognition
             }
         }
     });
-    SPEECH.onResult = function(transcript) {
+    SPEECH.onResult(function(transcript) {
         // fires after commands set via addVoiceCommands are parsed.
         // transcript is the object built by the speech recognition engine.
-    };
+    });
 
     // gets things going. when speech recognition is ready,
     // onStart will be called.
-    SPEECH.start();
+    SPEECH.start({
+        min_confidence = .3 // you can also pass config here
+    });
 }
 ```

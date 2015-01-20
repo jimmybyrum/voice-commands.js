@@ -1,16 +1,20 @@
+'use strict';
 (function() {
-  var speechRecognition = window.SpeechRecognition ||
+  var SpeechRecognition = window.SpeechRecognition ||
                           window.webkitSpeechRecognition ||
                           window.mozSpeechRecognition ||
                           window.oSpeechRecognition ||
                           window.msSpeechRecognition;
   var recognition;
-  var final_transcript = '';
   var recognizing = false;
-  var lang = "en-US";
+  var lang = 'en-US';
   var commands = [];
 
-  if ( ! window.console) window.console = { log: function() {} };
+  if ( ! window.console) {
+    window.console = {
+      log: function() {}
+    };
+  }
 
   // now and debounce taken from underscore.js
   // by Jeremy Ashkenas http://underscorejs.org/
@@ -53,9 +57,19 @@
   }, 700, true);
 
   window.SPEECH = {
-    onStart: function() {},
-    onStop: function() {},
-    onResult: function() {},
+    _onStart: function() {},
+    _onStop: function() {},
+    _onResult: function() {},
+
+    onStart: function(fn) {
+      this._onStart = fn;
+    },
+    onStop: function(fn) {
+      this._onStop = fn;
+    },
+    onResult: function(fn) {
+      this._onResult = fn;
+    },
 
     isCapable: function() {
       return recognition !== undefined;
@@ -68,12 +82,16 @@
       }
     },
 
-    start: function(event) {
+    start: function(config) {
+      if (config) {
+        if (config.min_confidence) {
+          this.min_confidence = config.min_confidence;
+        }
+      }
       if (recognizing) {
         recognition.stop();
         return;
       }
-      final_transcript = '';
       recognition.lang = lang;
       recognition.start();
     },
@@ -81,8 +99,8 @@
     min_confidence: .5,
 
     addVoiceCommand: function(c) {
-      if (typeof c.command === "string") {
-        c.command = new RegExp(c.command, "i");
+      if (typeof c.command === 'string') {
+        c.command = new RegExp(c.command, 'i');
       }
       c.min_confidence = c.min_confidence || this.min_confidence;
       commands.push(c);
@@ -96,23 +114,23 @@
     }
   };
 
-  if (speechRecognition) {
-    recognition = new speechRecognition();
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
 
     recognition.onstart = function() {
       recognizing = true;
-      SPEECH.onStart();
+      SPEECH._onStart();
     };
 
     recognition.onerror = function(event) {
-      SPEECH.onStop();
+      SPEECH._onStop();
     };
 
     recognition.onend = function() {
       recognizing = false;
-      SPEECH.onStop();
+      SPEECH._onStop();
     };
 
     recognition.onresult = function(event) {
@@ -141,7 +159,10 @@
         }
       }
 
-      SPEECH.onResult(transcript);
+      SPEECH._onResult({
+        transcript: transcript,
+        confidence: confidence
+      });
 
     };
   }
