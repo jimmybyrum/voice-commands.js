@@ -7,7 +7,6 @@
                           window.msSpeechRecognition;
   var recognition;
   var recognizing = false;
-  var lang = 'en-US';
   var commands = [];
 
   if ( ! window.console) {
@@ -87,12 +86,14 @@
         if (config.min_confidence) {
           this.min_confidence = config.min_confidence;
         }
+        if (config.lang) {
+          recognition.lang = config.lang;
+        }
       }
       if (recognizing) {
         recognition.stop();
         return;
       }
-      recognition.lang = lang;
       recognition.start();
     },
 
